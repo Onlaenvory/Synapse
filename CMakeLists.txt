@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
-  # Sorce files
+  # Source files
   src/features/notification/notifier.cpp
   src/features/authenticate/auth.cpp
   src/client/client.cpp
@@ -18,6 +18,9 @@ set(SOURCES
   src/features/notification/notifier.hpp
   src/features/authenticate/auth.hpp
   src/client/client.hpp
+
+  # Data
+  data/active_keys.hpp
 
   # Settings
   src/settings/setting.hpp

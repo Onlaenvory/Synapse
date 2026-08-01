@@ -1,8 +1,8 @@
 #include "client/client.hpp"
 
 int main() {
-  Client sally;
+  Client Re;
 
-  sally.start();
+  Re.start();
   return 0;
 }

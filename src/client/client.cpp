@@ -13,8 +13,8 @@ void Client::start() {
   std::string keys;
   checkTerminal();
   Logger::sent(LogLevel::Info, "Starting system...");
+  Keys::loadKeys();
   Keys::getKeys();
-  main();
 }
 
 void Client::checkTerminal() {
@@ -25,7 +25,7 @@ void Client::checkTerminal() {
   Logger::sent(LogLevel::Warning, "Test Warning");
   Logger::sent(LogLevel::Critical, "Test Critical");
 
-  Logger::sent(LogLevel::Debug, "Is this display correctly [Y/n] : ");
+  Logger::sent(LogLevel::Info, "Is this display correctly [Y/n] : ");
 
   std::getline(std::cin, input);
   if (!input.empty() && input[0] == 'N' || input[0] == 'n') System::disableColoredFonts();
