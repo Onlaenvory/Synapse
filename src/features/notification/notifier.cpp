@@ -5,8 +5,10 @@
 #include <format>
 #include <string_view>
 
-void Notifier::sent(LogLevel logLevel, std::string_view log) {
+void Logger::sent(LogLevel logLevel, std::string_view log) {
   std::string buffers;
+
+  if (!Setting::enableLog) return;
 
   if (logLevel <= Setting::logLevel) {
     switch (logLevel) {

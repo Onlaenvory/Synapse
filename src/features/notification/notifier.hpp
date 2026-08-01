@@ -1,8 +1,9 @@
 #pragma once
-#include <string>
 #include "settings/setting.hpp"
 
-class Notifier
+#include <string_view>
+
+class Logger
 {
   public:
     static void sent(LogLevel logLevel, std::string_view log);
