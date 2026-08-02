@@ -1,7 +1,12 @@
 #pragma once
 #include <string_view>
+#include <unordered_set>
 
-namespace ActiveKey
+namespace KeyLists
 {
-  constexpr const std::string_view KEY_1 = "E9_C1_BD_KJ_O2";
+  inline const std::unordered_set<std::string_view> Key = {
+    "K7",
+    "B9",
+    "C1"
+  };
 };

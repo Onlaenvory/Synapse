@@ -1,39 +1,50 @@
 #include "auth.hpp"
-#include "features/notification/notifier.hpp"
+#include "features/logger/logger.hpp"
 #include "settings/setting.hpp"
 #include "../data/active_keys.hpp"
 
 #include <cstdio>
 #include <iostream>
+#include <vector>
 #include <string>
 
-std::vector<std::string> Keys::activeKeys;
+const uint8_t MAX_LOGIN_ATTEMPT = 3;
 
-void Keys::getKeys() {
-  std::string key;
-  int max_attempt = 3;
+namespace
+{
+  std::vector<std::string> activeKeys;
+}
 
-  Logger::sent(LogLevel::Info, "Getting user key...");
-  for (int attempt = max_attempt - 1; attempt >= 0; attempt--) {
+void KeyManager::requestKey() {
+  std::string inputKey;
+
+  for (short attempt = 0; attempt < MAX_LOGIN_ATTEMPT; attempt++) {
     printf("Key : ");
-    std::getline(std::cin, key);
+    std::getline(std::cin, inputKey);
 
-    Logger::sent(LogLevel::Info, "Verifing key...");
-    for (std::string_view Keys : Keys::activeKeys) {
-      if (key == Keys) {
-        printf("Login with key : %s\n", key.data());
-        return;
-      }
-    }
+    Logger::sent(LogLevel::Info, "Verifying Key\t[-]");
+    for (std::string_view validKey : activeKeys) if (inputKey == validKey) return;
 
-    printf("Invalid Key!!!, Please try again\tremaining attempt[%d]\n", attempt);
-    Logger::sent(LogLevel::Warning, "Invalid key...");
+    Logger::sent(LogLevel::Warning, "Invalid key\t[-]");
+    printf("Invalid Key!!!\n");
   }
+
   Logger::sent(LogLevel::Critical, "Stopping session...");
   exit(0);
 }
 
-void Keys::loadKeys() {
-  Keys::activeKeys.push_back(std::string(ActiveKey::KEY_1));
-  Logger::sent(LogLevel::Info, "Allocating Key 1");
-}
+void KeyManager::loadKeys() {
+  Logger::sent(LogLevel::Info, "Initializing Key\t[ 0% ]");
+
+  if (KeyLists::Key.empty()) {
+    Logger::sent(LogLevel::Critical, "Key set value is empty");
+    return;
+  }
+  try {
+    activeKeys.insert(activeKeys.end(), KeyLists::Key.begin(), KeyLists::Key.end());
+    Logger::sent(LogLevel::Info, "Initializing Key\t[ COMPLETE ]");
+  }
+  catch (const std::bad_alloc& BA) {
+    Logger::sent(LogLevel::Warning, std::format("Bad memory allocation << {}", BA.what()));
+  }
+};

@@ -3,7 +3,6 @@
 class Client
 {
   public:
-   static void start();
-   static void checkTerminal();
-   static void main();
+    void start();
+    static void main();
 };
