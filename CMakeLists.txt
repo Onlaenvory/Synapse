@@ -9,13 +9,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
   # Source files
-  src/features/logger/logger.cpp
   src/features/authenticate/auth.cpp
-  src/client/client.cpp
   src/main.cpp
 
   # Header files
-  src/features/logger/logger.hpp
+  src/core/logger.hpp
   src/features/authenticate/auth.hpp
   src/client/client.hpp
 

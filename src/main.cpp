@@ -1,8 +1,7 @@
 #include "client/client.hpp"
 
 int main() {
-  Client Re;
-
-  Re.start();
+  Client re;
+  re.run();
   return 0;
 }
