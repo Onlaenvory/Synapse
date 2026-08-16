@@ -1,7 +1,6 @@
-#include "client/client.hpp"
+#include "core/logger.hpp"
 
 int main() {
-  Client re;
-  re.run();
+  Logger::log(LogLevel::Critical, "ようこそ!");
   return 0;
 }

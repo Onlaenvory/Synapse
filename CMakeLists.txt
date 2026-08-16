@@ -1,27 +1,20 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(Yoshimura LANGUAGES CXX C)
+project(Synapse LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(SOURCES
   # Source files
-  src/features/authenticate/auth.cpp
-  src/main.cpp
-
-  # Header files
+  src/core/setting.hpp
   src/core/logger.hpp
-  src/features/authenticate/auth.hpp
-  src/client/client.hpp
+  src/core/auth.cpp
+  src/main.cpp
 
   # Data
   data/active_keys.hpp
-
-  # Settings
-  src/settings/setting.hpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
